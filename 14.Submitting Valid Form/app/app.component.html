@@ -1,0 +1,65 @@
+<div class="container">
+    <h2>User Data</h2>
+        <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value)" novalidate>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" #nameRef="ngModel" maxlength="10" minlength="4" required class="form-control" name="name" ngModel>
+                <div *ngIf="nameRef.errors && (nameRef.dirty || nameRef.touched)" class="alert alert-danger">
+                    <div [hidden]="!nameRef.errors.required">
+                        Please Enter a Name
+                    </div>
+                    <div [hidden]="!nameRef.errors.minlength">
+                        Please Enter Atleast 4 Characters
+                    </div>
+                    <div [hidden]="!nameRef.errors.maxlength">
+                        Please Enter Atmax 10 Characters
+                    </div>
+                </div>
+
+                <!--<div [hidden]="nameRef.valid || nameRef.pristine" class="alert alert-danger">
+                    Please Enter a Name
+                </div>-->
+                <!--<b>{{nameRef.className}}</b>-->
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" name="email" ngModel>
+            </div>
+            <div ngModelGroup="address">
+            <div class="form-group">
+                <label>Street</label>
+                <input type="text" class="form-control" name="street" ngModel>
+            </div>
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" class="form-control" name="city" ngModel>
+            </div>
+            <div class="form-group">
+                <label>PostalCode</label>
+                <input type="text" #refPincode="ngModel" pattern="^[1-9][0-9]{4}$" class="form-control" name="postalcode" ngModel>
+                <div *ngIf="refPincode.errors && (refPincode.dirty || refPincode.touched)" class="alert alert-danger">
+                    <div [hidden]="!refPincode.errors.pattern">
+                        Please Enter a 5 Digit Pincode
+                    </div>
+                    
+                </div>
+            </div>
+
+            </div>
+            <!--[Without grouping]
+                <div class="form-group">
+                <label>Street</label>
+                <input type="text" class="form-control" name="street" ngModel>
+            </div>
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" class="form-control" name="city" ngModel>
+            </div>
+            <div class="form-group">
+                <label>PostalCode</label>
+                <input type="text" class="form-control" name="postalcode" ngModel>
+            </div>-->
+            <button [disabled]="!userForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+</div>
